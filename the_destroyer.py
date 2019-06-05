@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame.sprite import (Group)
 from settings import Settings
 from character import Character
 import game_functions as gf
@@ -13,11 +14,16 @@ def run_game():
 
     # Make a character.
     character = Character(td_settings, screen)
+    # Make a group to store bullets in.
+    bullets = Group()
 
     # Start the main loop for the game.
     while True:
-        gf.check_events(character)
+        gf.check_events(td_settings, screen, character, bullets)
         character.update()
-        gf.update_screen(td_settings, screen, character)
+        gf.update_bullets(bullets)
+        gf.update_screen(td_settings, screen, character, bullets)
 
-run_game()
+
+if __name__ == '__main__':
+    run_game()
